@@ -23,6 +23,12 @@ pub struct VM {
     pub program: Vec<u8>,
 }
 
+impl Default for VM {
+    fn default() -> Self {
+        VM::new()
+    }
+}
+
 impl VM {
     fn decode(&mut self) -> Opcode {
         match self.program[self.pc] {
@@ -327,9 +333,9 @@ mod tests {
     #[test]
     fn test_mul() {
         let mut test_vm = VM::new();
-        test_vm.program = vec![1, 0, 5, 248, 255, 255, 255, 1, 1, 5, 8, 0, 0, 0, 4, 0, 1, 2];
+        test_vm.program = vec![1, 0, 8, 0, 0, 188, 65, 1, 1, 8, 236, 81, 9, 66, 4, 0, 1, 2];
         test_vm.run();
-        assert_eq!(test_vm.registers[2], NativeTypes::I32(-64))
+        assert_eq!(test_vm.registers[2], NativeTypes::F32(806.75507))
     }
 
     #[test]
